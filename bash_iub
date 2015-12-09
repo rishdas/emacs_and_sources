@@ -1,0 +1,5 @@
+source ~/.bashrc
+alias silo='ssh sirdas@silo.soic.indiana.edu'
+alias addlibpath='export DYLD_LIBRARY_PATH=$PWD/lib:$DYLD_LIBRARY_PATH'
+alias create_etags='find . -name "*.c" -print -or -name "*.h" -print | xargs etags'
+source ~/host_list_alias

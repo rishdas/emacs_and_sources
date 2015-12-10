@@ -1,2 +1,3 @@
 source ~/.bashrc
 alias gin='ssh sirdas@gin.incntre.iu.edu'
+alias create_etags='find . -name "*.c" -print -or -name "*.h" -print | xargs etags'

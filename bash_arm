@@ -1,0 +1,48 @@
+export PATH=$PATH:/home/sirdas/bin
+function create_cscope {
+    # Write only the files which are NOT symlinks
+    find . \( \( -iname "*.c" -o -iname "*.cc" -o -iname "*.h" \) -and \( -not -type l \) \) -print > cscope.files
+    # Add the target of the symlink for all files matching the right extension, and are symlinks
+    #find `pwd` \( \( -iname "*.c" -o -iname "*.cc" -o -iname "*.h" \) -and -type l \) -printf "%l\n"  >> cscope.files
+    cscope -q -R -b -i cscope.files
+
+}
+
+function echo_hugepages {
+    echo -e "/proc/sys/vm/nr_hugepages"
+    cat /proc/sys/vm/nr_hugepages
+}
+
+alias rm='rm -i'
+alias ..='cd ..'
+
+
+alias create_etags='find . -name "*.c" -print -or -name "*.h" -print | xargs etags'
+export COMMIT="commita"
+
+alias coa='export COMMIT=commita'
+alias cob='export COMMIT=commitb'
+alias coc='export COMMIT=commitc'
+
+alias cvppsrc='cd ~/code/$COMMIT/vpp'
+alias cvppbuild='cd ~/code/$COMMIT/vpp/build-root/install-vpp-native/vpp'
+alias cdpdk='cd ~/code/$COMMIT/dpdk'
+alias cloneevpp='git clone ssh://sirshakd@gerrit.fd.io:29418/vpp.git'
+alias cloneedpdk='git clone git://dpdk.org/dpdk'
+
+alias vppsrc='cd ~/code/common/vpp'
+alias dpdk='cd ~/code/common/dpdk'
+
+alias code='cd ~/code'
+alias build='cd ~/build'
+alias mbin='cd ~/build/bin'
+alias mlib='cd ~/build/lib'
+
+alias vim='nwemacs'
+export CSCOPE_EDITOR="nwemacs"
+export GIT_EDITOR="emacs -nw"
+export EDITOR="emacs -nw"
+
+#############################################################
+
+alias vagrant1='ssh vagrant@172.28.128.6'

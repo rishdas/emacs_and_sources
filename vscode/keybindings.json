@@ -1,0 +1,67 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "ctrl+s",
+        "command": "actions.find"
+    },
+    {
+        "key": "ctrl+f",
+        "command": "-actions.find"
+    },
+    {
+        "key": "ctrl+x ctrl+f",
+        "command": "workbench.action.files.openFile"
+    },
+    {
+        "key": "ctrl+o",
+        "command": "-workbench.action.files.openFile"
+    },
+    {
+        "key": "ctrl+x 2",
+        "command": "workbench.action.splitEditorDown"
+    },
+    {
+        "key": "ctrl+x 2",
+        "command": "workbench.action.splitEditorUp"
+    },
+    {
+        "key": "ctrl+x 3",
+        "command": "workbench.action.splitEditorLeft"
+    },
+    {
+        "key": "ctrl+x 3",
+        "command": "workbench.action.splitEditorRight"
+    },
+    {
+        "key": "ctrl+x 2",
+        "command": "-workbench.action.splitEditor"
+    },
+    {
+        "key": "ctrl+k ctrl+\\",
+        "command": "-workbench.action.splitEditorOrthogonal"
+    },
+    {
+        "key": "ctrl+x 3",
+        "command": "-workbench.action.toggleEditorGroupLayout"
+    },
+    {
+        "key": "ctrl+x up",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "ctrl+x down",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+x left",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+x right",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.switchWindow"
+    }
+]

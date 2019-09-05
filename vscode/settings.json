@@ -2,5 +2,7 @@
     "team.showWelcomeMessage": false,
     "workbench.activityBar.visible": true,
     "window.menuBarVisibility": "default",
-    "workbench.statusBar.visible": true
+    "editor.minimap.enabled": false,
+    "workbench.editor.showTabs": false,
+    "workbench.startupEditor": "none"
 }

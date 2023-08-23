@@ -1,67 +1,20 @@
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (package-initialize)
+;; Package Config
 (require 'package)
-;; (add-to-list 'package-archives
-;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
- '(custom-enabled-themes (quote (dakrone)))
- '(custom-safe-themes
-   (quote
-    ("2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "59e82a683db7129c0142b4b5a35dbbeaf8e01a4b81588f8c163bd255b76f4d21" "47744f6c8133824bdd104acc4280dbed4b34b85faa05ac2600f716b0226fb3f6" "2eb9ca16f246c23c72780a6f0c5453b8df75524b8ccacf951119e1f0ca6d6064" "748d0e2ffdaf95015a539dcc95ab888283284ad7b076963760422cbe5e21903a" default)))
- '(fci-rule-color "#383838")
- '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
- '(package-selected-packages
-   (quote
-    (dakrone-theme cyberpunk-theme mandm-theme yaml-mode lua-mode gerrit-download magit-gerrit jedi darkburn-theme mustang-theme magit helm-spotify circe xcscope mu4e-maildirs-extension mbsync melancholy-theme auto-complete gited)))
- '(send-mail-function (quote smtpmail-send-it))
- '(vc-annotate-background "#2B2B2B")
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#BC8383")
-     (40 . "#CC9393")
-     (60 . "#DFAF8F")
-     (80 . "#D0BF8F")
-     (100 . "#E0CF9F")
-     (120 . "#F0DFAF")
-     (140 . "#5F7F5F")
-     (160 . "#7F9F7F")
-     (180 . "#8FB28F")
-     (200 . "#9FC59F")
-     (220 . "#AFD8AF")
-     (240 . "#BFEBBF")
-     (260 . "#93E0E3")
-     (280 . "#6CA0A3")
-     (300 . "#7CB8BB")
-     (320 . "#8CD0D3")
-     (340 . "#94BFF3")
-     (360 . "#DC8CC3"))))
- '(vc-annotate-very-old-color "#DC8CC3"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+;; Split Screen Config
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
+
+;; Windows special (need Putty installed plink.exe needs to be in PATH)
+(setq tramp-default-method "plink")
+(set-face-attribute 'default nil :family "Consolas" :height 110)
+
+;; Cscope
 
 (require 'xcscope)
 (cscope-setup)
@@ -77,20 +30,76 @@
 (define-key global-map [(meta f10)] 'cscope-find-assignments-to-this-symbol)
 (define-key global-map [(meta f11)] 'cscope-pop-mark)
 (define-key global-map [(control f12)] 'cscope-find-egrep-pattern)
-;; (define-key global-map [(control f9)]  'cscope-history-forward-line)
-;; (define-key global-map [(control f10)] 'cscope-history-forward-file)
-;; (define-key global-map [(control f11)] 'cscope-history-backward-line)
-;; (define-key global-map [(control f12)] 'cscope-history-backward-file)
-;; (define-key global-map [(meta f9)]  'cscope-display-buffer)
-;; (define-key global-map [(meta f10)] 'cscope-display-buffer-toggle)
 
-
+;; Etags config
 (define-key global-map "\M-*" 'pop-tag-mark)
+
+;; Comment Section
+
+(global-set-key (kbd "C-/") 'comment-line)
+
+;; Line number config
 (global-linum-mode 1)
 (setq linum-format "%d ")
 (setq column-number-mode t)
-(defun setup-c-mode ()
-  (set-variable 'indent-tabs-mode t)
-  (c-set-offset 'inextern-lang 0))
-(add-hook 'c-mode-common-hook 'setup-c-mode)
-(setq c-default-style "gnu")
+
+;; C coding Style
+(setq-default indent-tabs-mode nil)
+(require 'auto-complete)
+(global-auto-complete-mode t)
+(c-add-style "microsoft"
+             '("stroustrup"
+	       (c-tab-always-indent . nil)
+               (c-offsets-alist
+                (innamespace . -)
+                (inline-open . 0)
+                (inher-cont . c-lineup-multi-inher)
+                (template-args-cont . +))))
+(setq c-default-style "microsoft")
+
+(require 'clang-format)
+(global-set-key (kbd "C-x f") 'clang-format-region)
+(setq clang-format-style-option "llvm")
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(custom-enabled-themes '(vs-dark))
+ '(custom-safe-themes
+   '("cf856c10886059898685bfdba0c2b0e1416562475e8f47d29a60aa10c264d42e" "a1b7ff5791dfc05e0ca4a733dc1d299052d0cd2083084481f232053f1af05013" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" "b3697d12fb7c087e1337432be92026b5fd218e7e43277918c0fce680d573a90c" "2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" default))
+ '(package-selected-packages
+   '(protobuf-mode pcap-mode multiple-cursors rust-mode vs-dark-theme vscdark-theme clang-format helm-gtags ample-theme chocolate-theme omnisharp go-mode yaml-mode elpy ansible auto-complete csharp-mode powershell magit dakrone-theme xcscope)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; (setq frame-title-format
+;;     '((:eval (if (buffer-file-name)
+;;                   (abbreviate-file-name (buffer-file-name))
+;;                     "%b"))
+;;       (:eval (if (buffer-modified-p) 
+;;                  " •"))
+;;       " - Emacs")
+;;   )
+(setq my-username (getenv "USERNAME"))
+(setq my-hostname (getenv "COMPUTERNAME"))
+(setq my-domainname (getenv "USERDOMAIN"))
+(setq my-sysinfo (list " - " my-domainname "\\" my-username "@" my-hostname))
+
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))
+        (:eval (if (buffer-modified-p) 
+                   " •"))
+        my-sysinfo)
+      )
+(global-auto-revert-mode t)
